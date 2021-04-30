@@ -1,0 +1,17 @@
+.botoes{
+	display: flex; 
+	align-items: right; 
+	position: absolute; 
+	right: 1em
+}
+
+.btn-voltar{
+	padding-top:0em;
+	padding-bottom:0em; 
+	margin-right:1em;
+}
+
+.btn-avanca{
+	padding-top:0em;
+	padding-bottom:0em;
+}
