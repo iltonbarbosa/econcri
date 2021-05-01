@@ -36,43 +36,24 @@ var canvas = map.getCanvasContainer();
 var geojson = {
 	'type': 'FeatureCollection',
 	'features': [
-		{
-		'type': 'Feature',
-		'geometry': {
-		'type': 'Point',
-		'coordinates': [-47.9344819,-15.8075925]
-		}
-	}
-	]
+		<?php if(isset($coordenadas)) 
+			foreach($coordenadas as $cord):?>
+			{
+				'type': 'Feature',
+				'properties': {
+					'nome': '<?=$cord['nome']?>',
+					'nome_contato': '<?=$cord['nome_contato']?>',
+					'email_contato': '<?=$cord['email_contato']?>',
+					},
+				'geometry': {
+					'type': 'Point',
+					'coordinates': [<?=$cord['longitude']?>,<?=$cord['latitude']?>]
+					}
+			},
+			<?php endforeach?>
+		]
 };
 
-function onMove(e) {
-	var coords = e.lngLat;
-	
-	// Set a UI indicator for dragging.
-	canvas.style.cursor = 'grabbing';
-	
-	// Update the Point feature in `geojson` coordinates
-	// and call setData to the source layer `point` on it.
-	geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
-	map.getSource('point').setData(geojson);
-}
- 
-function onUp(e) {
-	var coords = e.lngLat;
-	
-	// Print the coordinates of where the point had
-	// finished being dragged to on the map.
-	coordinates.style.display = 'block';
-	coordinates.innerHTML =
-	'Longitude: ' + coords.lng + '<br />Latitude: ' + coords.lat;
-	canvas.style.cursor = '';
-	
-	// Unbind mouse/touch events
-	map.off('mousemove', onMove);
-	map.off('touchmove', onMove);
-}
- 
 map.on('load', function () {
 	// Add a single point to the map
 	map.addSource('point', {
@@ -85,40 +66,32 @@ map.on('load', function () {
 		'type': 'circle',
 		'source': 'point',
 		'paint': {
-		'circle-radius': 10,
-		'circle-color': '#3887be'
-		}
+			'circle-radius': 10,
+			'circle-color': 'red'
+			}
 	});
  
 // When the cursor enters a feature in the point layer, prepare for dragging.
+	map.on('click', function(e) {
+		var features = map.queryRenderedFeatures(e.point, {
+			layers: ['point'] // replace this with the name of the layer
+		});
+
+		if (!features.length) {
+			return;
+		}
+
+		var feature = features[0];
+
+		var popup = new mapboxgl.Popup({ offset: [0, -15] })
+			.setLngLat(feature.geometry.coordinates)
+			.setHTML('<h5>' + feature.properties.nome + '</h5><p>Contato: ' + feature.properties.nome_contato + '<br/>E-mail: '+feature.properties.email_contato+'</p>')
+			.addTo(map);
+	});
+
 	map.on('mouseenter', 'point', function () {
-		map.setPaintProperty('point', 'circle-color', '#3bb2d0');
-		canvas.style.cursor = 'move';
-	});
-	
-	map.on('mouseleave', 'point', function () {
-		map.setPaintProperty('point', 'circle-color', '#3887be');
-		canvas.style.cursor = '';
-	});
-	
-	map.on('mousedown', 'point', function (e) {
-		// Prevent the default map drag behavior.
-		e.preventDefault();
-		
-		canvas.style.cursor = 'grab';
-		
-		map.on('mousemove', onMove);
-		map.once('mouseup', onUp);
-	});
-	
-	map.on('touchstart', 'point', function (e) {
-		if (e.points.length !== 1) return;
-		
-		// Prevent the default map drag behavior.
-		e.preventDefault();
-		
-		map.on('touchmove', onMove);
-		map.once('touchend', onUp);
+		map.setPaintProperty('point', 'circle-color', 'red');
+		canvas.style.cursor = 'pointer';
 	});
 });
 </script>

@@ -32,13 +32,19 @@
 			</a>
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="/">Todas...</a>
 				<?php foreach($categorias as $c):?>
-					<a class="collapse-item" href="buttons.html"><?=$c['descricao']?></a>
+					<a class="collapse-item" href="/home/index/<?=$c['idcategoria']?>"><?=$c['descricao']?></a>
 				<?php endforeach; ?>	
 			</div>
 			</div>
 		</li>
-	  <?php endif ?>			
+	  <?php endif ?>	
+	  <li class="nav-item">
+        <a class="nav-link" href="/home/listacadastro/<?=isset($idcategoria)?$idcategoria:''?>">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Lista cadastros</span></a>
+      </li>		
       <!-- Divider -->
       <hr class="sidebar-divider">
 

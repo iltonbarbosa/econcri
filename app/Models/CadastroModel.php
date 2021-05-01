@@ -25,15 +25,15 @@ class CadastroModel extends Model{
 	}
 
 	public function getCadastro($idcadastro = false, $idcategoria = false){
-		
-		if($idcadastro == false || $idcategoria == false){
-			$query = $this->query("SELECT * FROM cadastro join categoria using(idcategoria) order by nome" );
-			return $query->getResult('array');
 
-		}else if ($idcadastro == false && $idcategoria != false){
+		if ($idcadastro == false && $idcategoria != false){
 			$query = $this->query("SELECT * FROM cadastro join categoria using(idcategoria) where idcategoria ='".$idcategoria."' order by nome" );
 			return $query->getResult('array');
-		}
+		}else
+			if($idcadastro == false || $idcategoria == false){
+				$query = $this->query("SELECT * FROM cadastro join categoria using(idcategoria) order by nome" );
+				return $query->getResult('array');
+			}
 
 		return $this->getCadastrobyId($idcadastro, $idcategoria);			
 	}
@@ -55,7 +55,7 @@ class CadastroModel extends Model{
 	}
 
 	protected function getCadastrobyId($idcadastro, $idcategoria){
-
+		$tabela = '';
 		switch ($idcategoria) {
 			case '2':
 				$tabela = 'empresa';
@@ -68,11 +68,17 @@ class CadastroModel extends Model{
 				break;
 		}
 
-		return $this->asArray()
+		if($tabela)
+			return $this->asArray()
 				->join($tabela, 'idcadastro')
 				->join('categoria', 'idcategoria')
 				->where(['cadastro.idcadastro' => $idcadastro])
 				->first();
+
+		return $this->asArray()
+				->join('categoria', 'idcategoria')
+				->where(['cadastro.idcadastro' => $idcadastro])
+				->first();		
 
 	}
 
@@ -80,6 +86,25 @@ class CadastroModel extends Model{
 
 		$this->query("UPDATE cadastro SET latitude='".$latitude."', longitude ='".$longitude."' where idcadastro = '".$idcadastro."'");
 
+	}
+
+	public function getCoordenadas($idcadastro = false){
+
+		$where = '';
+
+		if($idcadastro)
+		  $where = " where idcadastro ='".$idcadastro."'";
+
+		$query = $this->query("SELECT latitude,longitude, nome, idcategoria, nome_contato, email_contato FROM cadastro ".$where);
+		return $query->getResult('array');
+		
+	}
+
+	public function getCoordenadasByCategoria($idcategoria){
+
+		$query = $this->query("SELECT latitude,longitude, nome, idcategoria, nome_contato, email_contato FROM cadastro where idcategoria ='".$idcategoria."'");
+		return $query->getResult('array');
+		
 	}
 
 

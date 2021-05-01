@@ -39,11 +39,15 @@
 							<label for="linkportfolio">Link do Portfolio</label>
 							<input class="form-control" type="link" name="linkportfolio" value="<?=isset($cadastro)?$cadastro['linkportfolio']:''?>"/>
 						</div>
+						<div class="form-group">
+							<label for="linkportfolio">Palavras-chave (para facilitar localiza-lo nas pesquisas)</label>
+							<input class="form-control" type="palavraschave" name="palavraschave" value="<?=isset($cadastro)?$cadastro['palavraschave']:''?>"/>
+						</div>
 						<input type="hidden" name="idrelease" value="<?=isset($cadastro)?$cadastro['idrelease']:''?>"/>
 						<input type="hidden" name="idcadastro" value="<?=$idcadastro?>"/>
 						<?= csrf_field(); ?>
 						<?php if(isset($cadastro)):?>
-							<a style="margin-right:10em" href="<?= base_url('controle/release/excluir/'.$cadastro['idcadastro'])?>" class="btn btn-danger btn-primary"  
+							<a style="margin-right:10em" href="<?= base_url('controle/release/excluir/'.$cadastro['idrelease'])?>" class="btn btn-danger btn-primary"  
 							onclick="return confirm('Deseja realmente apagar este release?')">Excluir</a>
 						<?php endif ?>
 						<input type="submit" name="submit" class="btn btn-primary" value="Gravar" />

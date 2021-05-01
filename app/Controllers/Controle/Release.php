@@ -84,7 +84,6 @@ class Release extends BaseController{
 		$data['subtitulo'] = 'Cadastrar -'.$data['descricao'];
 		$data['cadastro'] = $this->model->getRelease($data['idcadastro']);
 		$data['linkVideos'] = $this->linkVModel->getLinkVideos($data['idcadastro']);
-		$data['msg'] = '';
 
 		echo view('backend/templates/html-header', $data);
 		echo view('backend/templates/header');

@@ -33,7 +33,7 @@
 							<label for="nome">Nome</label>
 							<input class="form-control" type="input" name="nome" value="<?=isset($cadastro)?$cadastro['nome']:''?>" required/>
 						</div>
-						<?php if($cadastro['idcategoria'] == 2):?>
+						<?php if((isset($cadastro) && $cadastro['idcategoria'] == 2) || session()->get('idcategoria') == 2):?>
 							<div class="form-group">
 								<label for="cnpj">Cnpj</label>
 								<input class="form-control" type="input" name="cnpj" value="<?=isset($cadastro)?$cadastro['cnpj']:''?>"/>
@@ -45,7 +45,8 @@
 							<input class="form-control" type="input" name="cidade" value="<?=isset($cadastro)?$cadastro['cidade']:''?>" required/>
 						</div>
 		
-						<?php if($cadastro['idcategoria'] == 5 || $cadastro['idcategoria'] == 8):?>
+						<?php if(isset($cadastro)) if($cadastro['idcategoria'] == 5 || $cadastro['idcategoria'] == 8 
+								|| session()->get('idcategoria') == 5 || session()->get('idcategoria') == 8):?>
 							<div class="form-group">
 								<label for="estilo">Estilo</label>
 								<input class="form-control" type="input" name="estilo" value="<?=isset($cadastro)?$cadastro['estilo']:''?>" required/>

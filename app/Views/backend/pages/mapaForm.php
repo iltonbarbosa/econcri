@@ -18,6 +18,13 @@
 	display: none;
 	}
 </style>
+<?php
+	if(!isset($latitude) && !isset($longitude)){
+		$longitude = -47.9344819;
+		$latitude =  -15.8075925;
+	}
+
+?>
 
 <form action="<?= base_url('controle/cadastro/gravarCordenadas') ?>" method="post" id="coordinates" class="coordinates" >
 	<label>Longitute: </label>
@@ -37,7 +44,7 @@ var coordinates = document.getElementById('coordinates');
 var map = new mapboxgl.Map({
 	container: 'map', // container ID
 	style: 'mapbox://styles/mapbox/streets-v11', // style URL
-	center: [-47.9344819,-15.8075925], // starting position [lng, lat]
+	center: [<?=$longitude?>,<?=$latitude?>], // starting position [lng, lat]
 	zoom: 12 // starting zoom
 });
 var canvas = map.getCanvasContainer();
@@ -49,7 +56,7 @@ var geojson = {
 		'type': 'Feature',
 		'geometry': {
 		'type': 'Point',
-		'coordinates': [-47.9344819,-15.8075925]
+		'coordinates': [<?=$longitude?>,<?=$latitude?>]
 		}
 	}
 	]

@@ -20,7 +20,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/controle">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Painel de Controle</span></a>
+          <span>Tela inicial</span></a>
       </li>
 
       <!-- Divider -->

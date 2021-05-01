@@ -47,6 +47,7 @@
 						<?= csrf_field(); ?>
 						<input type="submit" name="submit" class="btn btn-primary" value="Gravar" />
 					</form>
+					<p>Termos de uso....</>
 				</div>
 			</div>
 		</div>

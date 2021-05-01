@@ -72,6 +72,9 @@ class Cadastro extends BaseController{
 			$this->model->save($data);
 			$idcadastro = $this->model->getLastInsertID($nome, $idcategoria, $cidade);
 
+			session()->set('idcadastro', $idcadastro);
+			session()->set('idcategoria', $idcategoria);
+
 			switch ($idcategoria) {
 				case '2':
 					$this->cadastraEmpresa($idcadastro);
@@ -98,9 +101,9 @@ class Cadastro extends BaseController{
 		$data['title'] = "Cadastro";
 		
 		$data['cadastro'] = $this->model->getCadastro($idcadastro, $idcategoria);
+
 		session()->set('idcadastro', $data['cadastro']['idcadastro']);
-		session()->set('idcategoria', $data['cadastro']['idcategoria']);
-		session()->set('categoriadesc', $data['cadastro']['descricao']);
+
 		$data['idcategoria'] = session()->get('idcategoria');
 		$data['subtitulo'] = "Editar - Dados iniciais - ".$data['cadastro']['descricao'];
 		$data['msg'] = "";
@@ -203,7 +206,7 @@ class Cadastro extends BaseController{
 
 		$this->model->gravaCoordenadas($idcadastro, $latitude, $longitude);
 
-		return redirect()->to(base_url('controle/mapaForm/'));
+		return redirect()->to(base_url('controle'));//tela inicial autenticado
 
 	}
 
