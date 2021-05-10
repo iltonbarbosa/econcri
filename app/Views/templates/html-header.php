@@ -9,7 +9,7 @@
   <meta name="description" content="Econcri - Sistema de gestão para a economia criativa">
   <meta name="author" content="Ilton Barbosa">
 
-  <title><?=$title?> - Painel Administrativo</title>
+  <title>Econcri - <?=$title?></title>
 
   <!-- Custom fonts for this template-->
   <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,6 +18,25 @@
   <!-- Custom styles for this template-->
   <link href="/css/sb-admin-2.min.css" rel="stylesheet">
   <link href="/css/formulario.css" rel="stylesheet">
+
+<?php if (isset($listaCadastro)):?>
+	<!-- para a barra de busca no topo das tabelas-->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/dt-1.10.24/datatables.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$.extend($.fn.dataTable.defaults, {
+				language: { url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json" }
+			});
+
+			$('#dataTable').DataTable( {
+				"ajax": "/Ajax/Cadastros/lista/"
+			} );
+		} );
+	</script>
+ <?php endif ?>
   <?=isset($headerMapa)?$headerMapa:''?>
 </head>
 

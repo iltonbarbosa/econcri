@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class LinkVideoModel extends Model{
 
 	protected $table = 'linkvideo';
-	protected $allowedFields = ['idlinkvideo','idcadastro', 'link'];
+	protected $allowedFields = ['idcadastro', 'link'];
 	protected $primaryKey = 'idlinkvideo';
 
 

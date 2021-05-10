@@ -23,7 +23,7 @@ class Release extends BaseController{
 		$data['msg'] = '';
 
 		if(!isset($data['idcadastro']))
-			return redirect()->to(base_url('controle/cadastro'));
+			return redirect()->to(base_url('controle/Cadastro'));
 
 		$this->exibeView($data);
 	}
@@ -33,9 +33,9 @@ class Release extends BaseController{
 
 		$idrelease = $this->request->getVar('idrelease');
 		$idcadastro = $this->request->getVar('idcadastro');
-		$release = $this->request->getVar('release');
+		$release = str_replace("'","’",$this->request->getVar('release'));
 		$linkportfolio = $this->request->getVar('linkportfolio');
-		$palavraschave = $this->request->getVar('palavraschave');
+		$palavraschave = str_replace("'",".",$this->request->getVar('palavraschave'));
 
 		helper('form');
 
@@ -71,7 +71,7 @@ class Release extends BaseController{
 
 		$this->model->delete(['idcadastro' => $id]);
 		
-		return redirect()->to(base_url('controle/release'));
+		return redirect()->to(base_url('controle/Release'));
 
 	}
 
@@ -129,7 +129,7 @@ class Release extends BaseController{
 
 		$this->linkVModel->delete(['idcadastro' => $id]);
 
-		return redirect()->to(base_url('controle/release'));
+		return redirect()->to(base_url('controle/Release'));
 		
 	}
 

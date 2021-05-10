@@ -18,17 +18,17 @@
 		<div class="col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 style="float:left;" class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
+					<h6 class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
 					<?php if(isset($idcadastro)):?>
 					    <div class="botoes">
-							<a href="<?= base_url('controle/cadastro/editar/'.$idcadastro.'/'.$idcategoria)?>" class="btn-voltar btn"  
+							<a href="<?= base_url('controle/Cadastro/editar/'.$idcadastro.'/'.$idcategoria)?>" class="btn-voltar btn"  
 							> << Voltar</a>
-							<a href="<?= base_url('controle/agenda/index/'.$idcadastro)?>" class="btn-avanca btn">Próxima tela >></a>
+							<a href="<?= base_url('controle/Agenda/index/'.$idcadastro)?>" class="btn-avanca btn">Próxima tela >></a>
 						</div>
 					<?php endif ?>
 				</div>
 				<div class="card-body">
-					<form action="<?= base_url('controle/redesocial/gravar') ?>" method="post">
+					<form action="<?= base_url('controle/RedeSocial/gravar') ?>" method="post">
 						<div class="form-group">
 							<label for="nome">Rede Social</label>
 							<input class="form-control" type="input" name="nome" value="<?=isset($cadastro)?$cadastro['nome']:''?>" required/>
@@ -62,8 +62,8 @@
 						<tbody>
 						<?php if($cadastros != null) foreach($cadastros as $d):?>	
 							<tr role="row" class="odd">
-								<td class="sorting_1"><a href="/controle/redesocial/editar/<?=$d['idredesocial']?>"><?=$d['nome']?></a></td>
-								<td><a href="/controle/redesocial/excluir/<?=$d['idredesocial'].'/'.$d['idcadastro']?>" onclick="return confirm('Confirma exclusão da rede social <?=$d['nome']?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
+								<td class="sorting_1"><a href="/controle/RedeSocial/editar/<?=$d['idredesocial']?>"><?=$d['nome']?></a></td>
+								<td><a href="/controle/RedeSocial/excluir/<?=$d['idredesocial'].'/'.$d['idcadastro']?>" onclick="return confirm('Confirma exclusão da rede social <?=$d['nome']?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>

@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class RedeSocialModel extends Model{
 
 	protected $table = 'redesocial';
-	protected $allowedFields = ['idredesocial','idcadastro', 'nome','link'];
+	protected $allowedFields = ['idcadastro', 'nome','link'];
 	protected $primaryKey = 'idredesocial';
 
 

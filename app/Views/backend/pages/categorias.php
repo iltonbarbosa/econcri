@@ -19,7 +19,7 @@
                   <h6 class="m-0 font-weight-bold text-primary"><?=$subtitulo?> categoria</h6>
                 </div>
                 <div class="card-body">
-					<form action="<?= base_url('controle/categorias/gravar') ?>" method="post">
+					<form action="<?= base_url('controle/Categorias/gravar') ?>" method="post">
 						<div class="form-group">
 							<label for="titulo">Descrição</label>
 							<input class="form-control" type="input" name="descricao" value="<?=isset($categoria)?$categoria['descricao']:''?>"/>
@@ -50,8 +50,8 @@
 				 			<?php foreach($categorias as $c):?>	
 								<tr role="row" class="odd">
 									<td class="sorting_1"><?=$c['descricao']?></td>
-									<td><a href="/controle/categorias/editar/<?=$c['idcategoria']?>"><i class="fas fa-edit"></i> Editar</a></td>
-									<td><a href="/controle/categorias/excluir/<?=$c['idcategoria']?>" onclick="return confirm('Confirma exclusão da categoria <?=$c['descricao']?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
+									<td><a href="/controle/Categorias/editar/<?=$c['idcategoria']?>"><i class="fas fa-edit"></i> Editar</a></td>
+									<td><a href="/controle/Categorias/excluir/<?=$c['idcategoria']?>" onclick="return confirm('Confirma exclusão da categoria <?=$c['descricao']?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
 								</tr>
 					  		<?php endforeach; ?>
                	 		</tbody>

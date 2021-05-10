@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Bem-vindo to CodeIgniter</title>
+		<title>Welcome to CodeIgniter</title>
 
 		<link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
 	</head>

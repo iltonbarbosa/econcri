@@ -31,11 +31,20 @@ class CadastroModel extends Model{
 			return $query->getResult('array');
 		}else
 			if($idcadastro == false || $idcategoria == false){
-				$query = $this->query("SELECT * FROM cadastro join categoria using(idcategoria) order by nome" );
-				return $query->getResult('array');
+				return $this->asArray()
+				->join('categoria', 'idcategoria')
+				->orderBy('cadastro.nome')
+				->findAll();
 			}
 
 		return $this->getCadastrobyId($idcadastro, $idcategoria);			
+	}
+
+	public function getCadastroByUsuario($idusuario){
+
+		$query = $this->query("SELECT * FROM cadastro join categoria using(idcategoria) where idusuario='".$idusuario."' order by nome" );
+		return $query->getResult('array');
+						
 	}
 
 	public function existeCadastro($id, $nome, $idcategoria){
@@ -55,7 +64,7 @@ class CadastroModel extends Model{
 	}
 
 	protected function getCadastrobyId($idcadastro, $idcategoria){
-		$tabela = '';
+		$tabela = false;
 		switch ($idcategoria) {
 			case '2':
 				$tabela = 'empresa';
@@ -70,7 +79,7 @@ class CadastroModel extends Model{
 
 		if($tabela)
 			return $this->asArray()
-				->join($tabela, 'idcadastro')
+				->join($tabela, 'idcadastro', 'left')
 				->join('categoria', 'idcategoria')
 				->where(['cadastro.idcadastro' => $idcadastro])
 				->first();
@@ -90,21 +99,29 @@ class CadastroModel extends Model{
 
 	public function getCoordenadas($idcadastro = false){
 
-		$where = '';
+		$where = ' WHERE cadastro.deleted_at IS NULL ';
 
 		if($idcadastro)
-		  $where = " where idcadastro ='".$idcadastro."'";
+		  $where .= " AND idcadastro ='".$idcadastro."'";
 
-		$query = $this->query("SELECT latitude,longitude, nome, idcategoria, nome_contato, email_contato FROM cadastro ".$where);
+		$query = $this->query("SELECT latitude,longitude, nome, idcadastro, idcategoria, nome_contato, email_contato FROM cadastro ".$where);
 		return $query->getResult('array');
 		
 	}
 
 	public function getCoordenadasByCategoria($idcategoria){
 
-		$query = $this->query("SELECT latitude,longitude, nome, idcategoria, nome_contato, email_contato FROM cadastro where idcategoria ='".$idcategoria."'");
+		$query = $this->query("SELECT latitude,longitude, nome, idcadastro, idcategoria, nome_contato, email_contato FROM cadastro where idcategoria ='".$idcategoria."'");
 		return $query->getResult('array');
 		
+	}
+
+	public function buscaPorPalavra($palavra){
+
+		$palavra = $this->escapeLikeString($palavra);
+
+		$query = $this->query("SELECT * FROM cadastro where nome  like '%".$palavra."%'");
+		return $query->getResult('array');
 	}
 
 

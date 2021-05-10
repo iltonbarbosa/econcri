@@ -6,11 +6,11 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('controle/')?>">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">ADMIN<sup>1.0.0</sup></div>
+        <div class="sidebar-brand-text mx-3">Versão <sup>1.0.0</sup></div>
       </a>
 
       <!-- Divider -->
@@ -18,7 +18,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="/controle">
+        <a class="nav-link" href="<?= base_url('controle/')?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tela inicial</span></a>
       </li>
@@ -27,16 +27,6 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
-        Site
-      </div>
-
-	  <li class="nav-item">
-        <a class="nav-link" href="/controle/categorias">
-          <i class="fas fa-fw fa-list"></i>
-          <span>Categorias</span></a>
-      </li>
-
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -46,11 +36,18 @@
       </div>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="/controle/usuarios">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Usuários</span></a>
-      </li>
+	  <?php if(session()->get('perfil') == 1):?> 
+			<li class="nav-item">
+				<a class="nav-link" href="/controle/Categorias">
+					<i class="fas fa-fw fa-list"></i>
+				<span>Categorias</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/controle/Usuarios">
+					<i class="fas fa-fw fa-users"></i>
+				<span>Usuários</span></a>
+			</li>
+	  <?php endif; ?>	
 	  <li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 		<i class="fas fa-fw fa-cog"></i>
@@ -58,8 +55,13 @@
 		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 		<div class="bg-white py-2 collapse-inner rounded">
-			<a class="collapse-item" href="/controle/oquecadastrar/">Novo</a>
-			<a class="collapse-item" href="/controle/cadastro/listar">Listar</a>
+			<a class="collapse-item" href="/controle/OqueCadastrar/">Novo</a>
+			<?php if(session()->get('perfil') == 1):?> 
+				<a class="collapse-item" href="/controle/Cadastro/listar">Listar</a>
+			<?php endif ?>
+			<?php if(session()->get('perfil') == 2):?> 
+				<a class="collapse-item" href="/controle/Cadastro/listar/">Listar</a>
+			<?php endif ?>
 		</div>
 		</div>
 	  </li>
@@ -98,10 +100,11 @@
 		</a>
 		<!-- Dropdown - Messages -->
 		<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-		  <form class="form-inline mr-auto w-100 navbar-search">
+		  <form class="form-inline mr-auto w-100 navbar-search" action="<?= base_url('controle/Cadastro/buscaPorPalavra') ?>" method="post">
 			<div class="input-group">
-			  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+			  <input type="text" name="palavra" minlength="4" maxlength="20" class="form-control bg-light border-0 small" placeholder="Pesquise por uma palavra-chave..." aria-label="Search" aria-describedby="basic-addon2">
 			  <div class="input-group-append">
+			  	<?= csrf_field(); ?>
 				<button class="btn btn-primary" type="button">
 				  <i class="fas fa-search fa-sm"></i>
 				</button>
@@ -112,7 +115,8 @@
 	  </li>
 	  <?php if($title == 'Mapa'):?>
 		<div>
-			Clique na bolinha vermelha e arraste para a melhor posição que indique a localização deste cadastro no mapa. Em seguida, clique no botão "Confirmar" que está na parte inferior esquerda da tela.
+			<span style="color:red">Clique na bolinha vermelha e arraste para a melhor posição que indique a localização deste cadastro no mapa. Em seguida, clique no botão <strong>"Confirmar"</strong> que será exibido na parte inferior esquerda da tela.</span>
+			<a style="margin-left:5em" href="<?= base_url('controle/Release/')?>" class="btn-voltar btn"> << Voltar</a>
 		</div>
 	  <?php endif ?>
 	 

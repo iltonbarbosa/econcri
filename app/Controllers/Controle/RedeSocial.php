@@ -14,7 +14,7 @@ class RedeSocial extends BaseController{
 	public function index($idcadastro){
 
 		if(!isset($idcadastro))
-			return redirect()->to(base_url('controle/cadastro'));
+			return redirect()->to(base_url('controle/Cadastro'));
 
 		$this->exibeView($idcadastro);
 	}
@@ -72,7 +72,7 @@ class RedeSocial extends BaseController{
 				]);
 
 				$msg = 'Rede Social cadastrada!';
-				return redirect()->to(base_url('controle/redesocial/index/'.$idcadastro));
+				return redirect()->to(base_url('controle/RedeSocial/index/'.$idcadastro));
 
 			}else {
 				$msg = 'Erro ao cadastrar rede social!';
@@ -87,7 +87,7 @@ class RedeSocial extends BaseController{
 
 		$this->model->delete(['idredesocial' => $id]);
 
-		return redirect()->to(base_url('controle/redesocial/index/'.$idcadastro));
+		return redirect()->to(base_url('controle/RedeSocial/index/'.$idcadastro));
 	}
 
 	 private function exibeView($idcadastro, $msg = null){

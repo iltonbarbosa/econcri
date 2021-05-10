@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class ReleaseModel extends Model{
 
 	protected $table = 'release';
-	protected $allowedFields = ['idrelease','idcadastro', 'release','linkportfolio','palavraschave'];
+	protected $allowedFields = ['idcadastro', 'release','linkportfolio','palavraschave'];
 	protected $primaryKey = 'idrelease';//só consegui deletar assim
 
 	public function getRelease($id){

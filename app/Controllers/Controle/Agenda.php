@@ -11,12 +11,12 @@ class Agenda extends BaseController{
 		$this->model = new AgendaModel();
 	}
 
-	public function index($idcadastro){
+	public function index($idcadastro, $msg = null){
 
 		if(!isset($idcadastro))
-			return redirect()->to(base_url('controle/cadastro'));
+			return redirect()->to(base_url('controle/Cadastro'));
 
-		$this->exibeView($idcadastro);
+		$this->exibeView($idcadastro,$msg);
 	}
 
 	public function editar($id = null) {
@@ -71,7 +71,7 @@ class Agenda extends BaseController{
 				]);
 
 				$msg = 'Agenda cadastrada!';
-				return redirect()->to(base_url('controle/agenda/index/'.$idcadastro));
+				return redirect()->to(base_url('/controle/Agenda/index/'.$idcadastro));
 
 			}else {
 				$msg = 'Erro ao cadastrar dados da agenda!';
@@ -84,9 +84,16 @@ class Agenda extends BaseController{
 
 	public function excluir($id,$idcadastro){
 
-		$this->model->delete(['idagenda' => $id]);
+		try	{
+			$this->model->delete(['idagenda' => $id]);
+		}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+			$msg = "Erro ao entar excluir data da agenda.";
+		}
 
-		return redirect()->to(base_url('controle/agenda/index/'.$idcadastro));
+		return redirect()->to(base_url('/controle/Agenda/index/'.$idcadastro."/".$msg));
 	}
 
 	 private function exibeView($idcadastro, $msg = null){

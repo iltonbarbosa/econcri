@@ -29,7 +29,7 @@ class OqueCadastrar extends BaseController
 		session()->set('idcategoria', $idcategoria);
 		session()->set('categoriadesc', $categoriadesc);
 
-		return redirect()->to(base_url('controle/cadastro'));
+		return redirect()->to(base_url('controle/Cadastro'));
 	}
 
 }

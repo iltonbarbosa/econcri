@@ -1,6 +1,8 @@
  <!-- Begin Page Content -->
  <div class="container-fluid">
-
+ 	<?php if(session()->get('cadastro') != null)
+	 		$cadastro = session()->get('cadastro');
+	 ?>
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800">Cadastro</h1>
 
@@ -18,16 +20,16 @@
 		<div class="col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 style="float:left" class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
+					<h6 class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
 					<?php if(isset($cadastro)):?>
 					    <div style = "float:right;">
-							<a style="padding-top:0em;padding-bottom:0em;" href="<?= base_url('controle/redesocial/index/'.$cadastro['idcadastro'])?>"
+							<a style="padding-top:0em;padding-bottom:0em;" href="<?= base_url('controle/RedeSocial/index/'.$cadastro['idcadastro'])?>"
 							 class="btn btn-avanca" >Próxima tela</a>
 						</div>
 					<?php endif ?>
 				</div>
 				<div class="card-body">
-					<form action="<?= base_url('controle/cadastro/gravar') ?>" method="post">
+					<form action="<?= base_url('controle/Cadastro/gravar') ?>" method="post">
 
 						<div class="form-group">
 							<label for="nome">Nome</label>
@@ -45,49 +47,49 @@
 							<input class="form-control" type="input" name="cidade" value="<?=isset($cadastro)?$cadastro['cidade']:''?>" required/>
 						</div>
 		
-						<?php if(isset($cadastro)) if($cadastro['idcategoria'] == 5 || $cadastro['idcategoria'] == 8 
+						<?php if((isset($cadastro) && ($cadastro['idcategoria'] == 5 || $cadastro['idcategoria'] == 8)) 
 								|| session()->get('idcategoria') == 5 || session()->get('idcategoria') == 8):?>
-							<div class="form-group">
-								<label for="estilo">Estilo</label>
-								<input class="form-control" type="input" name="estilo" value="<?=isset($cadastro)?$cadastro['estilo']:''?>" required/>
-							</div>
+								<div class="form-group">
+									<label for="estilo">Estilo</label>
+									<input class="form-control" type="input" name="estilo" value="<?=isset($cadastro)?$cadastro['estilo']:''?>" required/>
+								</div>
 
-							<div className="input-block">
-								<label For="autoral_cover">Autoral ou cover?</label>
-								<div class="input-radio">
-									<label style="margin-right:2em">
-										<input type="radio" name="autoral_cover" value="1"
-										<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 1) echo 'checked';?>/> 
-										<span>Autoral</span>
-									</label>
-								
-									<label style="margin-right:2em">
-										<input type="radio" name="autoral_cover" value="1"
-										<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 2) echo 'checked';?>/>  
-										<span>Cover</span>
-									</label>
-								
-									<label >
-										<input type="radio" name="autoral_cover" value="3"
-										<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 3) echo 'checked';?>/> 
-										<span>Ambos</span>
-									</label>
+								<div className="input-block">
+									<label For="autoral_cover">Autoral ou cover?</label>
+									<div class="input-radio">
+										<label style="margin-right:2em">
+											<input type="radio" name="autoral_cover" value="1"
+											<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 1) echo 'checked';?>/> 
+											<span>Autoral</span>
+										</label>
+									
+										<label style="margin-right:2em">
+											<input type="radio" name="autoral_cover" value="1"
+											<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 2) echo 'checked';?>/>  
+											<span>Cover</span>
+										</label>
+									
+										<label >
+											<input type="radio" name="autoral_cover" value="3"
+											<?php if(isset($cadastro) && $cadastro['autoral_cover'] == 3) echo 'checked';?>/> 
+											<span>Ambos</span>
+										</label>
+									</div>
 								</div>
-							</div>
-							<?php if($cadastro['idcategoria'] == 5):?>
-								<input type="hidden" name="idcantor" value="<?=isset($cadastro)?$cadastro['idcantor']:''?>"/>
-							<?php endif ?>	
-							<?php if($cadastro['idcategoria'] == 8):?>
-								<div class="form-group">
-									<label for="num_integrantes">Número de integrantes</label>
-									<input class="form-control" type="number" name="num_integrantes" value="<?=isset($cadastro)?$cadastro['num_integrantes']:''?>"/>
-								</div>
-								<div class="form-group">
-									<label for="nome_integrantes">Nome dos integrantes</label>
-									<input class="form-control" type="text" name="nome_integrantes" value="<?=isset($cadastro)?$cadastro['nome_integrantes']:''?>"/>
-								</div>
-								<input type="hidden" name="idbanda" value="<?=isset($cadastro)?$cadastro['idbanda']:''?>"/>
-							<?php endif ?>
+								<?php if(isset($cadastro) && $cadastro['idcategoria'] == 5):?>
+									<input type="hidden" name="idcantor" value="<?=isset($cadastro)?$cadastro['idcantor']:''?>"/>
+								<?php endif ?>	
+								<?php if((isset($cadastro) && $cadastro['idcategoria'] == 8) || session()->get('idcategoria') == 8):?>
+									<div class="form-group">
+										<label for="num_integrantes">Número de integrantes</label>
+										<input class="form-control" type="number" name="num_integrantes" style="width:10em" value="<?=isset($cadastro)?$cadastro['num_integrantes']:''?>"/>
+									</div>
+									<div class="form-group">
+										<label for="nome_integrantes">Nome dos integrantes</label>
+										<input class="form-control" type="text" name="nome_integrantes" value="<?=isset($cadastro)?$cadastro['nome_integrantes']:''?>"/>
+									</div>
+									<input type="hidden" name="idbanda" value="<?=isset($cadastro)?$cadastro['idbanda']:''?>"/>
+								<?php endif ?>
 
 						<?php endif ?>
 						<div class="form-group">
@@ -106,11 +108,14 @@
 							<label for="email_contato">E-mail do contato principal</label>
 							<input class="form-control" type="email" name="email_contato" value="<?=isset($cadastro)?$cadastro['email_contato']:''?>" required/>
 						</div>
+						<div class="form-group">
+							<label for="email_contato">Cadastrado por: </label> <?=isset($cadastrado_por)?$cadastrado_por['nome']:'';?>
+						</div>
 						<input type="hidden" name="idcategoria" value="<?=isset($cadastro)?$cadastro['idcategoria']:''?>"/>		
 						<input type="hidden" name="idcadastro" value="<?=isset($cadastro)?$cadastro['idcadastro']:''?>"/>
 						<?= csrf_field(); ?>
 						<?php if(isset($cadastro)):?>
-							<a style="margin-right:10em" href="<?= base_url('controle/cadastro/excluir/'.$cadastro['idcadastro'])?>" class="btn btn-danger btn-primary"  
+							<a style="margin-right:10em" href="<?= base_url('controle/Cadastro/excluir/'.$cadastro['idcadastro'])?>" class="btn btn-danger btn-primary"  
 							onclick="return confirm('Deseja realmente apagar este cadastro?')">Excluir</a>
 						<?php endif ?>
 						<input type="submit" name="submit" class="btn btn-primary" value="Gravar" />

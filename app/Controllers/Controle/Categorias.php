@@ -12,14 +12,14 @@ class Categorias extends BaseController{
 		$this->model = new CategoriaModel();
 	}
 
-	public function index()	{
+	public function index($msg = null)	{
 		
 		$data = [
 			'title' => 'Categorias',
 			'subtitulo' => 'Inserir',
 			'categorias' => $this->model->paginate(10),
 			'pager' => $this->model->pager,
-			'msg' => ''
+			'msg' => str_replace("%20"," ",$msg)
 		];
 
 		$this->exibeView($data);
@@ -88,9 +88,16 @@ class Categorias extends BaseController{
 
 	public function excluir($id = null){
 
-		$this->model->delete(['idcategoria' => $id]);
+		try	{
+			$this->model->delete(['idcategoria' => $id]);
+			}
+		catch (\Exception $e)
+		{
+			echo $e->getMessage();
+			$msg = "Erro ao entar excluir categoria. Ela pode estar sendo utilizada.";
+		}
 
-		return redirect()->to(base_url('controle/categorias'));
+		return redirect()->to(base_url('/controle/Categorias/index/'.$msg));
 	}
 
 	private function exibeView($data){

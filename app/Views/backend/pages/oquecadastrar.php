@@ -21,7 +21,7 @@
 					<h6 class="m-0 font-weight-bold text-primary">O que cadastrar?</h6>
 				</div>
 				<div class="card-body">
-					<form action="<?= base_url('controle/oquecadastrar/gravar') ?>" method="post">
+					<form action="<?= base_url('controle/OqueCadastrar/gravar') ?>" method="post">
 
 						<div class="form-group">
 							<label for="titulo">Categoria</label>

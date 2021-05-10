@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class AgendaModel extends Model{
 
 	protected $table = 'agenda';
-	protected $allowedFields = ['idagenda','idcadastro', 'dtagenda','hora', 'local'];
+	protected $allowedFields = ['idcadastro', 'dtagenda','hora', 'local'];
 	protected $primaryKey = 'idagenda';
 
 	public function getAgenda($id  = false){

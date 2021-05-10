@@ -26,7 +26,7 @@
 
 ?>
 
-<form action="<?= base_url('controle/cadastro/gravarCordenadas') ?>" method="post" id="coordinates" class="coordinates" >
+<form action="<?= base_url('controle/Cadastro/gravarCordenadas') ?>" method="post" id="coordinates" class="coordinates" >
 	<label>Longitute: </label>
 	<input type='text' name='longitude' id="longitude" value="222222" /><br />
 	<label>Latitude: </label>
@@ -45,7 +45,7 @@ var map = new mapboxgl.Map({
 	container: 'map', // container ID
 	style: 'mapbox://styles/mapbox/streets-v11', // style URL
 	center: [<?=$longitude?>,<?=$latitude?>], // starting position [lng, lat]
-	zoom: 12 // starting zoom
+	zoom: 11.9 // starting zoom
 });
 var canvas = map.getCanvasContainer();
 
@@ -102,7 +102,7 @@ map.on('load', function () {
 		'type': 'circle',
 		'source': 'point',
 		'paint': {
-		'circle-radius': 10,
+		'circle-radius': 6,
 		'circle-color': 'red'
 		}
 	});

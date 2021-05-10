@@ -2,24 +2,24 @@
 namespace App\Controllers\Controle; //o CodeIgneter interpretará como um caminho a ser executado, sem precisar criar rotas
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use App\Models\UsuarioModel;
 
 class Usuarios extends BaseController{
 
 	var $model = null;
 
 	public function __construct(){
-		$this->model = new UserModel();
+		$this->model = new UsuarioModel();
 	}
 
-	public function index()	{
+	public function index($msg = null)	{
 		
 		$data = [
 			'title' => 'Usuários',
 			'subtitulo' => 'Inserir',
 			'usuarios' => $this->model->paginate(10),
 			'pager' => $this->model->pager,
-			'msg' => ''
+			'msg' => str_replace("%20"," ",$msg)
 		];
 		
 		$this->exibeView($data);
@@ -45,7 +45,7 @@ class Usuarios extends BaseController{
 	public function gravar(){
 
 		$idusuario = $this->request->getVar('id');
-		$nome = $this->request->getVar('nome');
+		$nome = str_replace("'",".",$this->request->getVar('nome'));
 		$email = $this->request->getVar('email');
 		if($this->request->getVar('senha'))
 			$senha = md5($this->request->getVar('senha'));
@@ -60,8 +60,9 @@ class Usuarios extends BaseController{
 		if($idusuario != null){
 			$valida = $this->validate([
 				'nome' => ['label' => 'Nome', 'rules' => 'required|min_length[3]'],
-				'email' => ['label' => 'E-mail', 'rules' => 'required|min_length[5]']
+				'email' => ['label' => 'E-mail', 'rules' => 'required|valid_email']
 				]);
+
 			if($valida && $this->model-> existeUsuario($idusuario, $email, $nome))
 				$msg = "O usuário ou e-mail já existe no sistema em outro registro";
 			
@@ -120,9 +121,16 @@ class Usuarios extends BaseController{
 	public function excluir($id = null){
 
 		if($id)
-			$this->model->delete(['idusuario' => $id]);
+			try	{
+				$this->model->delete(['idusuario' => $id]);
+				}
+			catch (\Exception $e)
+			{
+				echo $e->getMessage();
+				$msg = "Erro ao entar excluir usuário. Ele pode estar associado a algum cadastro.";
+			}
 
-		return redirect()->to(base_url('controle/usuarios'));
+		return redirect()->to(base_url('controle/Usuarios/'.$msg));
 	}
 
 	public function alterarSenha(){
@@ -135,7 +143,7 @@ class Usuarios extends BaseController{
 
 		$this->model->update($id, $data);
 
-		return redirect()->to(base_url('controle/usuarios'));
+		return redirect()->to(base_url('controle/Usuarios'));
 	}
 
 	private function exibeView($data){

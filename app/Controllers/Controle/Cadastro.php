@@ -5,6 +5,7 @@ use App\Models\CadastroModel;
 use App\Models\EmpresaModel;
 use App\Models\BandaModel;
 use App\Models\CantorModel;
+use App\Models\UsuarioModel;
 
 class Cadastro extends BaseController{
 
@@ -32,10 +33,10 @@ class Cadastro extends BaseController{
 
 		$idcadastro = $this->request->getVar('idcadastro');
 		$idusuario = session()->get('idusuario');
-		$nome = $this->request->getVar('nome');
-		$cidade = $this->request->getVar('cidade');
+		$nome = str_replace("'","’",$this->request->getVar('nome'));
+		$cidade = str_replace("'","’",$this->request->getVar('cidade'));
 		$tempo_atuacao = $this->request->getVar('tempo_atuacao');
-		$nome_contato = $this->request->getVar('nome_contato');
+		$nome_contato = str_replace("'","’",$this->request->getVar('nome_contato'));
 		$telefone_contato = $this->request->getVar('telefone_contato');
 		$email_contato = $this->request->getVar('email_contato');
 
@@ -50,14 +51,7 @@ class Cadastro extends BaseController{
 			'email_contato' => ['label' => 'E-mail do contato', 'rules' => 'required|min_length[3]'],
 			]);
 
-		if($valida && $idcadastro != null){
-			if($this->model-> existeCadastro($idcadastro, $nome, $idcategoria))
-				$msg = "Estes dados de cadastro já existem no sistema em outro registro";
-		}
-
-		if($valida){
-
-			$data = [
+		$data = [
 				'idcadastro' =>$idcadastro,
 				'idusuario' =>$idusuario,
 				'idcategoria' =>$idcategoria,
@@ -67,7 +61,16 @@ class Cadastro extends BaseController{
 				'nome_contato' => $nome_contato,
 				'telefone_contato' => $telefone_contato,
 				'email_contato' => $email_contato
-			];  
+			];  	
+
+		session()->set('cadastro', $data);	
+
+		if($valida && $idcadastro != null){
+			if($this->model-> existeCadastro($idcadastro, $nome, $idcategoria))
+				$msg = "Estes dados de cadastro já existem no sistema em outro registro";
+		}
+
+		if($valida){
 
 			$this->model->save($data);
 			$idcadastro = $this->model->getLastInsertID($nome, $idcategoria, $cidade);
@@ -88,7 +91,8 @@ class Cadastro extends BaseController{
 			}
 
 			$msg = 'Dados gravados com sucesso!';
-			return redirect()->to(base_url('controle/redesocial/index/'.$idcadastro));
+			session()->set('cadastro', null);	
+			return redirect()->to(base_url('/controle/RedeSocial/index/'.$idcadastro));
 
 		}else {
 			$msg = 'Erro ao cadastrar usuári@!';
@@ -98,13 +102,17 @@ class Cadastro extends BaseController{
 
 	public function editar ($idcadastro, $idcategoria){
 
+		$userModel = new UsuarioModel();
+
 		$data['title'] = "Cadastro";
 		
 		$data['cadastro'] = $this->model->getCadastro($idcadastro, $idcategoria);
 
 		session()->set('idcadastro', $data['cadastro']['idcadastro']);
+		session()->set('idcategoria', $idcategoria);
 
-		$data['idcategoria'] = session()->get('idcategoria');
+		$data['idcategoria'] = $idcategoria;
+		$data['cadastrado_por'] = $userModel->getUsuario($data['cadastro']['idusuario']);
 		$data['subtitulo'] = "Editar - Dados iniciais - ".$data['cadastro']['descricao'];
 		$data['msg'] = "";
 			 
@@ -112,11 +120,14 @@ class Cadastro extends BaseController{
 
 	}
 
-	public function listar ($idusuario = false){
+	public function listar (){
+
+		$idusuario = session()->get('idusuario');
+		$perfil = session()->get('perfil');
 
 		$data['title'] = "Cadastro";
-		if($idusuario != false)
-			$data['cadastros'] = $this->model->getCadastro($idusuario);
+		if($perfil != 1)
+			$data['cadastros'] = $this->model->getCadastroByUsuario($idusuario);
 		else	
 			$data['cadastros'] = $this->model->getCadastro();
 
@@ -131,9 +142,9 @@ class Cadastro extends BaseController{
 	public function excluir($id = null){
 
 		if($id)
-			$this->model->delete(['idcadastro' => $id]);
+			$this->model->delete(['idcadastro' => $id]);//Utilizando recurso que não chega a deletar do banco
 
-		return redirect()->to(base_url('controle/cadastro/listar'));
+		return redirect()->to(base_url('controle/Cadastro/listar'));
 	}
 
 //----------- privates ---------------------

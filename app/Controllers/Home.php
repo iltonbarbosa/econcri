@@ -2,24 +2,31 @@
 use App\Models\CategoriaModel;
 use App\Models\CadastroModel;
 
-class Home extends BaseController
-{
+class Home extends BaseController{
+
+	var $modelCat = null;
+	var $modelCad = null;
+
+
+	public function __construct(){
+		$this->modelCat = new CategoriaModel();
+		$this->modelCad = new CadastroModel();
+	}
+
 	public function index($idcategoria = false)	{
 
-		$model = new CategoriaModel();
-		$modelCad = new CadastroModel();
 		if($idcategoria){
-			$coordenadas = $modelCad->getCoordenadasByCategoria($idcategoria);
-			$cadastro = $modelCad->getCadastro(false,$idcategoria);
+			$coordenadas = $this->modelCad->getCoordenadasByCategoria($idcategoria);
+			//$cadastro = $this->modelCad->getCadastro(false,$idcategoria);
 			$data['idcategoria'] = $idcategoria;
 		}else{	
-			$coordenadas = $modelCad->getCoordenadas();
-			$cadastro = $modelCad->getCadastro();
+			$coordenadas = $this->modelCad->getCoordenadas();
+			$cadastro = $this->modelCad->getCadastro();
 		}	
-		$data['cadastro'] = $cadastro;
+		//$data['cadastro'] = $cadastro;
 		$data['coordenadas'] = $coordenadas;
 		$data['title'] = "Página inicial";
-		$data['categorias'] = $model->getCategoria();
+		$data['categorias'] = $this->modelCat->getCategoria();
 		$data['headerMapa'] = "
 			<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
 			<link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />";
@@ -31,24 +38,6 @@ class Home extends BaseController
 		echo view('/templates/html-footer');
 	}
 
-	public function listacadastro($idcategoria = false){
-
-		$modelCad = new CadastroModel();
-
-		if($idcategoria){
-			$cadastro = $modelCad->getCadastro(false,$idcategoria);
-		}else{
-			$cadastro = $modelCad->getCadastro();	
-		}	
-
-		$data['cadastros'] = $cadastro;
-		$data['title'] = "Lista de cadastros";
-		echo view('/templates/html-header', $data);
-		echo view('/templates/header');
-		echo view('/pages/listacadastro');
-		echo view('/templates/footer');
-		echo view('/templates/html-footer');
-
-	}
+	
 
 }

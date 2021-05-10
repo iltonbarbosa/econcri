@@ -18,17 +18,17 @@
 		<div class="col-md-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h6 style="float:left" class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
+					<h6 class="m-0 font-weight-bold text-primary"><?=$subtitulo?></h6>
 					<?php if(isset($idcadastro)):?>
 					    <div class="botoes">
-							<a href="<?= base_url('controle/redesocial/index/'.$idcadastro.'/'.$idcategoria)?>" class="btn-voltar btn"  
+							<a href="<?= base_url('controle/RedeSocial/index/'.$idcadastro.'/'.$idcategoria)?>" class="btn-voltar btn"  
 							> << Voltar</a>
-							<a  href="<?= base_url('controle/release/')?>" class="btn-avanca btn ">Próxima tela</a>
+							<a  href="<?= base_url('controle/Release/')?>" class="btn-avanca btn ">Próxima tela</a>
 						</div>
 					<?php endif ?>
 				</div>
 				<div class="card-body">
-					<form action="<?= base_url('controle/agenda/gravar') ?>" method="post">
+					<form action="<?= base_url('controle/Agenda/gravar') ?>" method="post">
 
 						<div class="form-row">
 							
@@ -67,8 +67,8 @@
 						<?php if($cadastros != null) foreach($cadastros as $d):
 							$agenda = date('d-m-Y', strtotime($d['dtagenda'])).' - '.$d['hora'].' - '.$d['local'];?>	
 							<tr role="row" class="odd">
-								<td class="sorting_1"><a href="/controle/agenda/editar/<?=$d['idagenda']?>"><?=$agenda?></a></td>
-								<td><a href="/controle/agenda/excluir/<?=$d['idagenda'].'/'.$d['idcadastro']?>" onclick="return confirm('Confirma exclusão da agenda <?=$agenda?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
+								<td class="sorting_1"><a href="/controle/Agenda/editar/<?=$d['idagenda']?>"><?=$agenda?></a></td>
+								<td><a href="/controle/Agenda/excluir/<?=$d['idagenda'].'/'.$d['idcadastro']?>" onclick="return confirm('Confirma exclusão da agenda <?=$agenda?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
 							</tr>
 						<?php endforeach; ?>
 						</tbody>

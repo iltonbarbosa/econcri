@@ -13,26 +13,25 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Bem vindo de Volta!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Recuperar Senha!</h1>
+					<?php if(isset($msg)): ?>
+					<div class="p-3 my-3 alert-info">
+						<?= $msg ?>
+					</div>
+					<?php endif;?>
                   </div>
-                  <form action="login/entrar" method="post">
+                  <form action="<?= base_url('login/enviaEmailRecSenha') ?>" method="post">
 
                     <div class="form-group">
-                      <label for="user">E-mail</label>
-                        <input class="form-control" type="email" name="email"/>
+                      <label for="user">Informe seu E-mail para envio do link de recuperação de senha</label>
+                        <input class="form-control" type="email" name="email" required/>
                     </div>
-                      
-                    <div class="form-group">
-                        <label for="senha">Senha</label>
-                        <input class="form-control" type="password" name="senha"/>
-                      </div>
                       <?= csrf_field(); ?>
 
-                      <input type="submit" name="submit" class="btn btn-primary" value="Entrar" />
-					  <a style="margin-left:1em" href="<?= base_url('/')?>" class="btn btn-primary">Cancelar</a>	
+                      <input type="submit" name="submit" class="btn btn-primary" value="Enviar link" />
+					  <a style="margin-left:1em" href="<?= base_url('controle/login/')?>" class="btn btn-primary">Cancelar</a>	
                   </form>
                   <hr>
-				  <span><a href="login/recuperarsenha">Esqueci minha senha</a></span>
                 </div>
               </div>
             </div>

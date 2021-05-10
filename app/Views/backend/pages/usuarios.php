@@ -21,7 +21,7 @@
                   <h6 class="m-0 font-weight-bold text-primary"><?=$subtitulo?> Usuários</h6>
                 </div>
                 <div class="card-body">
-				<form action="<?= base_url('controle/usuarios/gravar') ?>" method="post">
+				<form action="<?= base_url('controle/Usuarios/gravar') ?>" method="post">
 
                     <div class="form-group">
 						<label for="nome">Nome</label>
@@ -73,9 +73,9 @@
                   <tbody>
 				 <?php foreach($usuarios as $u):?>	
                   <tr role="row" class="odd">
-                      <td class="sorting_1"><a href="/controle/usuarios/editar/<?=$u['idusuario']?>"><?=$u['nome']?></a></td>
-                      <td><a href="#" data-toggle="modal" data-target="#Modal<?=$u['idusuario']?>"><i class="fas fa-key"></i> Mudar Senha</a></td>
-                      <td><a href="/controle/usuarios/excluir/<?=$u['idusuario']?>" onclick="return confirm('Confirma exclusão do usuário <?=$u['nome']?>?');"><i class="fas fa-trash"></i> Excluir</a></td>
+                      <td class="sorting_1"><a href="/controle/Usuarios/editar/<?=$u['idusuario']?>"><?=$u['nome']?></a></td>
+                      <td><a href="#" data-toggle="modal" data-target="#Modal<?=$u['idusuario']?>" style="font-size:0.8em"><i class="fas fa-key"></i> Mudar Senha</a></td>
+                      <td><a href="/controle/Usuarios/excluir/<?=$u['idusuario']?>" style="font-size:0.8em" onclick="return confirm('Confirma exclusão do usuário <?=$u['nome']?>?');"><i class="fas fa-trash"></i></a></td>
                    </tr>
 
 		<!-- Alterar Senha Modal-->
@@ -89,7 +89,7 @@
 					          </button>
 					        </div>
 					        <div class="modal-body">
-									<form action="<?=base_url('controle/usuarios/alterarSenha')?>" method="post">
+									<form action="<?=base_url('controle/Usuarios/alterarSenha')?>" method="post">
 										<div class="form-group">
 										    <label for="senha">Nova Senha</label>
 										    <input class="form-control" type="password" name="senha"/>

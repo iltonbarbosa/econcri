@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 class EmpresaModel extends Model{
 
 	protected $table = 'empresa';
-	protected $allowedFields = ['idempresa','idcadastro', 'cnpj'];
+	protected $allowedFields = ['idcadastro', 'cnpj'];
 	protected $primaryKey = 'idempresa';
 
 

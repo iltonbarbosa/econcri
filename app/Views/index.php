@@ -29,18 +29,20 @@ var map = new mapboxgl.Map({
 	container: 'map', // container ID
 	style: 'mapbox://styles/mapbox/streets-v11', // style URL
 	center: [-47.9344819,-15.8075925], // starting position [lng, lat]
-	zoom: 12 // starting zoom
+	zoom: 11.9 // starting zoom
 });
 var canvas = map.getCanvasContainer();
 
 var geojson = {
 	'type': 'FeatureCollection',
 	'features': [
-		<?php if(isset($coordenadas)) 
+		<?php if(isset($coordenadas))
 			foreach($coordenadas as $cord):?>
 			{
 				'type': 'Feature',
 				'properties': {
+					'idcadastro': '<?=$cord['idcadastro']?>',
+					'idcategoria': '<?=$cord['idcategoria']?>',
 					'nome': '<?=$cord['nome']?>',
 					'nome_contato': '<?=$cord['nome_contato']?>',
 					'email_contato': '<?=$cord['email_contato']?>',
@@ -60,17 +62,17 @@ map.on('load', function () {
 		'type': 'geojson',
 		'data': geojson
 		});
- 
+
 	map.addLayer({
 		'id': 'point',
 		'type': 'circle',
 		'source': 'point',
 		'paint': {
-			'circle-radius': 10,
+			'circle-radius': 6,
 			'circle-color': 'red'
 			}
 	});
- 
+
 // When the cursor enters a feature in the point layer, prepare for dragging.
 	map.on('click', function(e) {
 		var features = map.queryRenderedFeatures(e.point, {
@@ -85,7 +87,7 @@ map.on('load', function () {
 
 		var popup = new mapboxgl.Popup({ offset: [0, -15] })
 			.setLngLat(feature.geometry.coordinates)
-			.setHTML('<h5>' + feature.properties.nome + '</h5><p>Contato: ' + feature.properties.nome_contato + '<br/>E-mail: '+feature.properties.email_contato+'</p>')
+			.setHTML('<h5> <a href="/Cadastro/visualiza/' + feature.properties.idcadastro + '/' + feature.properties.idcategoria +'">' + feature.properties.nome + '</a></h5><p>Contato: ' + feature.properties.nome_contato + '<br/>E-mail: '+feature.properties.email_contato+'</p>')
 			.addTo(map);
 	});
 

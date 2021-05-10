@@ -11,7 +11,7 @@ class CategoriaModel extends Model{
 	public function getCategoria($id = false){
 
 		if($id == false){
-			return $this->findAll();
+			return $this->orderBy('descricao')->findAll();
 		}
 
 		return $this->asArray()
