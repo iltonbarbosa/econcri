@@ -45,6 +45,11 @@
           <i class="fas fa-fw fa-users"></i>
           <span>Lista cadastros</span></a>
       </li>		
+	  <li class="nav-item">
+        <a class="nav-link" href="/cadastro/locaisPraTocar">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Locais pra tocar</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -99,12 +104,12 @@
 		</a>
 		<!-- Dropdown - Messages -->
 		<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-			<form class="form-inline mr-auto w-100 navbar-search" action="<?= base_url('controle/Cadastro/buscaPorPalavra') ?>" method="post">
+			<form class="form-inline mr-auto w-100 navbar-search" id="pesquisaPalavra" action="<?= base_url('controle/Cadastro/buscaPorPalavra') ?>" method="post">
 				<div class="input-group">
 					<input type="text" name="palavra" minlength="4" maxlength="20" class="form-control bg-light border-0 small" placeholder="Pesquise por uma palavra-chave..." aria-label="Search" aria-describedby="basic-addon2">
 					<div class="input-group-append">
 						<?= csrf_field(); ?>
-						<button class="btn btn-primary" type="button">
+						<button class="btn btn-primary" type="button" onclick="document.getElementById('pesquisaPalavra').submit()">
 						<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>

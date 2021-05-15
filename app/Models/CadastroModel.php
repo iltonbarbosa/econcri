@@ -116,6 +116,13 @@ class CadastroModel extends Model{
 		
 	}
 
+	public function getLocaisPraTocar(){
+
+		$query = $this->query("SELECT latitude,longitude, nome, idcadastro, idcategoria, nome_contato, email_contato FROM cadastro left join `release` using(idcadastro) where palavraschave  like ('%bar%')");
+		return $query->getResult('array');
+		
+	}
+
 	public function buscaPorPalavra($palavra){
 
 		$palavra = $this->escapeLikeString($palavra);

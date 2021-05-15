@@ -32,6 +32,29 @@ class Cadastro extends BaseController{
 
 	}
 
+	public function locaisPraTocar(){
+
+		$coordenadas = $this->modelCad->getLocaisPraTocar();
+		$cadastro = $this->modelCad->getCadastro();
+	
+		$data['coordenadas'] = $coordenadas;
+		$data['title'] = "Página inicial";
+		$data['categorias'] = $this->modelCat->getCategoria();
+		$data['headerMapa'] = "
+			<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+			<link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />";
+			
+		echo view('/templates/html-header', $data);
+
+		if(session()->get('idusuario')!=null)
+			echo view('backend/templates/header');
+		else	
+			echo view('/templates/header');
+		echo view('index');
+		echo view('/templates/footer');
+		echo view('/templates/html-footer');
+	}
+
 	public function visualiza($idcadastro,$idcategoria){
 
 		$data['categorias'] = $this->modelCat->getCategoria();
