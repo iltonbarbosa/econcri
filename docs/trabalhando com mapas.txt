@@ -1,0 +1,15 @@
+Abrir popup ao clicar em um marcador
+
+https://docs.mapbox.com/help/tutorials/add-points-pt-3/
+
+Adicionando vários pontos ao mapa
+https://docs.mapbox.com/mapbox-gl-js/example/geojson-markers/
+
+Arraste o ponto para sua localização
+https://docs.mapbox.com/mapbox-gl-js/example/drag-a-point/	
+
+Exibir um ponto no mapa
+
+var marker = new mapboxgl.Marker()
+.setLngLat([-47.9344819,-15.8075925])
+.addTo(map);

@@ -1,59 +1,35 @@
-# CodeIgniter 4 Framework
+# Sistema para cadastro de artistas
 
-## What is CodeIgniter?
+Desenvolvido com CodeIgniter 4, o sitema Econcri está na sua primeira versão, aliás pode-se dizer um protótipo ainda. Tem funções para cadastro de artitas, por categorias. As categorias "Banda" e "cantor", possui campos a mais que são exibidos no formulário de cadastro, quando se seleciona uma destas categorias.
+Todos os campos necessários para conclusão do cadastro, estão distribuídos em várias telas, de modo a não desencorajar o usuário se todos os campos estivessem em uma única tela. Na primeira tela o usuário seleciona a categoria e na tela seguinte preenche as informações básicas do cadastros, nas telas seguintes são informações complementares, sendo a última tela o mapa onde o usuário marcará em que localização se encontra seu projeto.
+Para cadastrar um artista, o usuário precisa cadastrar-se primeiro como usuário do sistema, onde é pedido somente o nome do usuário, o e-mail e a senha. Uma mensagem é enviada para o e-mail do usuário confirmando o cadastro e informando sobre o próximo passo.
+A partir deste cadastro inicial, o usuário poderá cadastrar quantos artistas quiser.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible, and secure. 
-More information can be found at the [official site](http://codeigniter.com).
+##Tela inicial
+A tela inicial apresenta um mapa com pontos marcados dos cadastros já realizados. Como foi desenvolvido com foco nos artistas de Brasília, o mapa tem sua localização inicial no centro de Brasília.
+Os usuários poderão clicar nos pontos marcados e acessar informações básicas dos cadastros. No menu lateral tem um link que também possibilita ver a lista dos cadastros já realizados, bem como um menu para selecionar a exibição dos pontos por categorias.
 
-This repository holds the distributable version of the framework,
-including the user guide. It has been built from the 
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+##Novas funcionalidades a serem desenvolvidas
+Está previsto que o sistema tenha novas funcionalidades, tais como:
+<!--ts-->
+* Busca por palavra-chave.
+* Na tela em que se marca o ponto no mapa da localização do artista, é necessário arrastar um pontinho vermelho para a posição que indica a localização do artista. O ideal é que o ponto fosse exibido na localização do artista a partir de um clique do mouse.
+* Módulo para o usuário montar orçamento para projetos: o sistema listará itens básicos que um projeto deverá ter, conforme for o tipo de projeto que pretende executar e se o tipo estiver contemplado nos tipos já pre-estabelecidos, tais como: realizar evento com shows ao vivo, evento de feira, evento em locais fechados...
+* Módulo para o usuário montar um projeto: - ter um passo-a-passo para se montar um projeto. O usuário vai preenchendo as informações e no final o sistema gera um arquivo com uma estrutura básica e as informações já acrescentadas.
+* Chat on-line
+* Sistema de pontuação para, por exemplo, cadastros completos (preenchidos 100%), agendas atualizadas, uso dos módulos, etc.
+* Módulo de contrato: fechamento de contrato com bares, ou produtores de evento.
+* Exibição de anúncios para usuários que não optarem pela versão PRO.
+<!--te-->
 
-**This is pre-release code and should not be used in production sites.**
-
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
-
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/). 
+A idéia é que o acesso a alguns destes módulos seja pago.
 
 
-## Important Change with index.php
+##Banco de dados
+O banco é MySQL e o script está na pasta Docs, na raiz do projeto.
+Não desenvolvi o arquivo de migração conforme recomenda o CodeIgniter.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Coloquei nesta pasta também os prints de algumas telas.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Contatos: sistemaeconcri@gmail.com
 
-**Please** read the user guide for a better explanation of how CI4 works!
-The user guide updating and deployment is a bit awkward at the moment, but we are working on it!
-
-## Repository Management
-
-We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script. 
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Contributing
-
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 7.2 or higher is required, with the following extensions installed: 
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
