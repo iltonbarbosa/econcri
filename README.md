@@ -1,15 +1,17 @@
 # Sistema para cadastro de artistas
 
 Desenvolvido com CodeIgniter 4, o sitema Econcri está na sua primeira versão, aliás pode-se dizer um protótipo ainda. Tem funções para cadastro de artitas, por categorias. As categorias "Banda" e "cantor", possui campos a mais que são exibidos no formulário de cadastro, quando se seleciona uma destas categorias.
-Todos os campos necessários para conclusão do cadastro, estão distribuídos em várias telas, de modo a não desencorajar o usuário se todos os campos estivessem em uma única tela. Na primeira tela o usuário seleciona a categoria e na tela seguinte preenche as informações básicas do cadastros, nas telas seguintes são informações complementares, sendo a última tela o mapa onde o usuário marcará em que localização se encontra seu projeto.
+Todos os campos necessários para conclusão do cadastro, estão distribuídos em várias telas, de modo a não desencorajar o usuário se todos os campos estivessem em uma única tela. Na primeira tela o usuário seleciona a categoria e na tela seguinte preenche as informações básicas do cadastro, nas telas seguintes são informações complementares, sendo a última tela o mapa onde o usuário marcará em que localização se encontra seu projeto. Cada tela tem o seu botão para salvar os dados.
 Para cadastrar um artista, o usuário precisa cadastrar-se primeiro como usuário do sistema, onde é pedido somente o nome do usuário, o e-mail e a senha. Uma mensagem é enviada para o e-mail do usuário confirmando o cadastro e informando sobre o próximo passo.
 A partir deste cadastro inicial, o usuário poderá cadastrar quantos artistas quiser.
 
-##Tela inicial
+## Tela inicial
+
 A tela inicial apresenta um mapa com pontos marcados dos cadastros já realizados. Como foi desenvolvido com foco nos artistas de Brasília, o mapa tem sua localização inicial no centro de Brasília.
 Os usuários poderão clicar nos pontos marcados e acessar informações básicas dos cadastros. No menu lateral tem um link que também possibilita ver a lista dos cadastros já realizados, bem como um menu para selecionar a exibição dos pontos por categorias.
 
-##Novas funcionalidades a serem desenvolvidas
+## Novas funcionalidades a serem desenvolvidas
+
 Está previsto que o sistema tenha novas funcionalidades, tais como:
 <!--ts-->
 * Busca por palavra-chave.
@@ -25,7 +27,7 @@ Está previsto que o sistema tenha novas funcionalidades, tais como:
 A idéia é que o acesso a alguns destes módulos seja pago.
 
 
-##Banco de dados
+## Banco de dados
 O banco é MySQL e o script está na pasta Docs, na raiz do projeto.
 Não desenvolvi o arquivo de migração conforme recomenda o CodeIgniter.
 
